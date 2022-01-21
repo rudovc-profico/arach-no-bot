@@ -1,0 +1,21 @@
+{
+  "name": "arach-no-bot",
+  "displayName": "Arach-NO!bot",
+  "description": "",
+  "version": "1.0.0",
+  "main": "app/app.ts",
+  "author": "SneakySnek",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rudovc/arach-no-bot/arach-no-bot.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [],
+  "contributors": []
+}
