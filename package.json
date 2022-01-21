@@ -1,21 +1,32 @@
 {
   "name": "arach-no-bot",
   "displayName": "Arach-NO!bot",
-  "description": "",
+  "description": "Traveler's Largest Bot for banning people who won't stop posting r/dtg! ",
   "version": "1.0.0",
-  "main": "app/app.ts",
+  "main": "src/index.ts",
   "author": "SneakySnek",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rudovc/arach-no-bot/arach-no-bot.git"
-  },
+  "repository": "https://github.com/rudovc/arach-no-bot/arach-no-bot.git",
   "engines": {
     "node": ">=16.0.0"
   },
-  "scripts": {},
-  "dependencies": {},
-  "devDependencies": {},
+  "scripts": {
+    "start:dev": "yarn nodemon"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^14.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.10",
+    "eslint-config-airbnb": "^19.0.4",
+    "nodemon": "^2.0.15",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
   "keywords": [],
   "contributors": []
 }
