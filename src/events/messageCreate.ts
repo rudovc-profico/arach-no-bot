@@ -26,7 +26,7 @@ export const messageCreateEvent = {
       embeds: Array<MessageEmbed>;
     };
 
-    console.log(`${channel} - ${tag}: ${content}`);
+    console.log(`${channel.name} - ${tag}: ${content}`);
 
     if (keyword.test(content)) {
       channel.send(`${author}, stop posting r/dtg >:(`);
