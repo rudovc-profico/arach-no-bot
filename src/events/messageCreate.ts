@@ -6,7 +6,7 @@ import {
   ThreadChannel,
   User,
 } from "discord.js";
-import { timeOut } from "../utils";
+import { GuildMemberUtils } from "../utils";
 
 const keyword =
   /.*https?:\/\/(?:(?:np)|(?:www)|(?:old))?\.(?:(?:redd\.it)|(?:reddit\.com))?\/r\/[d,D]estiny[t,T]he[g,G]ame.*/;
@@ -38,7 +38,7 @@ export const messageCreateEvent = {
     if (keyword.test(content)) {
       channel.send(`${author}, stop posting r/dtg >:(`);
       if (member) {
-        timeOut(member);
+        GuildMemberUtils.timeOut(member);
       } else {
         console.log(
           "\x1b[31m%s\x1b[0m",
