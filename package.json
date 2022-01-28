@@ -18,7 +18,8 @@
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
     "dotenv": "^14.2.0",
-    "follow-redirects": "^1.14.7"
+    "follow-redirects": "^1.14.7",
+    "prettier-airbnb-config": "^1.0.0"
   },
   "devDependencies": {
     "@types/follow-redirects": "^1.13.1",

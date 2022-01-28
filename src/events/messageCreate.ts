@@ -1,11 +1,12 @@
 import {
+  GuildMember,
   Message,
-  MessageEmbed,
   NewsChannel,
   TextChannel,
   ThreadChannel,
   User,
 } from "discord.js";
+import { timeOut } from "../utils";
 
 const keyword =
   /.*https?:\/\/(?:(?:np)|(?:www)|(?:old))?\.(?:(?:redd\.it)|(?:reddit\.com))?\/r\/[d,D]estiny[t,T]he[g,G]ame.*/;
@@ -18,18 +19,33 @@ export const messageCreateEvent = {
       content,
       author: { tag },
       author,
-      // embeds,
+      member,
     } = message as {
       channel: TextChannel | NewsChannel | ThreadChannel;
-      content: string;
       author: User;
-      embeds: Array<MessageEmbed>;
+      content: string;
+      member: GuildMember;
     };
 
-    console.log(`${channel.name} - ${tag}: ${content}`);
+    const now = Date.now();
+
+    console.log(
+      `[${Intl.DateTimeFormat().format(now)}] ${
+        channel.name
+      } - ${tag}: ${content}`
+    );
 
     if (keyword.test(content)) {
       channel.send(`${author}, stop posting r/dtg >:(`);
+      if (member) {
+        timeOut(member);
+      } else {
+        console.log(
+          "\x1b[31m%s\x1b[0m",
+          `[${Intl.DateTimeFormat().format(now)}] - Could not time out ${tag}`
+        );
+        console.error("Error - The user is no longer a member of the guild.");
+      }
     }
   },
 };
