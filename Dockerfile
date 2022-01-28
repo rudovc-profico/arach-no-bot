@@ -12,10 +12,14 @@ RUN npm install yarn
 # Will uncomment this later for production only
 # RUN yarn install --production
 
+RUN rm package-lock.json
+
 RUN yarn
 
 # Bundle app source code
 COPY . .
 
-CMD [ "ts-node", "./src/app/app.ts" ]
+RUN yarn build:prod
+
+CMD [ "yarn", "start:prod"]
 
