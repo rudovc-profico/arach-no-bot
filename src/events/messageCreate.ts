@@ -1,12 +1,13 @@
 import {
   GuildMember,
   Message,
+  MessageEmbed,
   NewsChannel,
   TextChannel,
   ThreadChannel,
   User,
 } from "discord.js";
-import { GuildMemberUtils } from "../utils";
+import { GuildMemberUtils, readImage } from "../utils";
 
 const keyword =
   /.*(?:https)?:(?:\/\/)??(?:([d,D]estiny[t,T]he[g,G]ame\.)|(?:np\.)|(?:www\.)|(?:old\.))?((?:redd\.it)|(?:re(?:ve)?ddit\.com))((?:\/r\/)|(?:\/v\/)?[d,D]estiny[t,T]he[g,G]ame)?.*/;
@@ -20,11 +21,13 @@ export const messageCreateEvent = {
       author: { tag },
       author,
       member,
+      embeds,
     } = message as {
       channel: TextChannel | NewsChannel | ThreadChannel;
       author: User;
       content: string;
       member: GuildMember;
+      embeds: MessageEmbed[];
     };
 
     const now = Date.now();
@@ -46,6 +49,20 @@ export const messageCreateEvent = {
         );
         console.error("Error - The user is no longer a member of the guild.");
       }
+    }
+
+    if (embeds) {
+      const images = embeds
+        .filter((embed) => embed.image)
+        .map((embed) => embed.image);
+
+      images.find((image) => {
+        if (image) {
+          return readImage(image?.url);
+        }
+
+        return false;
+      });
     }
   },
 };
