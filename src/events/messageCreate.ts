@@ -49,7 +49,6 @@ export const messageCreateEvent = {
     }
 
     if (await MessageUtils.testMessage(content, embeds, attachments)) {
-      console.log("it's true");
       channel.send(`${author}, stop posting r/dtg >:(`);
       if (member) {
         GuildMemberUtils.timeOut(member);

@@ -18,7 +18,6 @@ export default class MessageUtils {
     if (keyword.test(content)) {
       return true;
     }
-
     if (embeds.length > 0 || attachments.size > 0) {
       const urls = embeds
         .map((embed) => embed.image?.url)
@@ -31,13 +30,11 @@ export default class MessageUtils {
             .map((attachment) => attachment.url)
         );
 
-      return !!urls.find((url) => {
-        if (url && readImage(url)) {
+      for (const url of urls) {
+        if (await readImage(url)) {
           return true;
         }
-
-        return false;
-      });
+      }
     }
     return false;
   };
