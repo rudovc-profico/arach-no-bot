@@ -9,7 +9,7 @@ import {
 import { GuildMemberUtils } from "../utils";
 
 const keyword =
-  /.*https?:\/\/(?:(?:np)|(?:www)|(?:old))?\.(?:(?:redd\.it)|(?:reddit\.com))?\/r\/[d,D]estiny[t,T]he[g,G]ame.*/;
+  /.*(?:https)?:(?:\/\/)??(?:([d,D]estiny[t,T]he[g,G]ame\.)|(?:np\.)|(?:www\.)|(?:old\.))?((?:redd\.it)|(?:re(?:ve)?ddit\.com))((?:\/r\/)|(?:\/v\/)?[d,D]estiny[t,T]he[g,G]ame)?.*/;
 
 export const messageCreateEvent = {
   name: "messageCreate",
