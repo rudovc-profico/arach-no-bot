@@ -20,7 +20,7 @@ RUN npm install yarn
 
 RUN rm package-lock.json
 
-RUN yarn
+RUN yarn --production=true
 
 # Bundle app source code
 COPY . .
