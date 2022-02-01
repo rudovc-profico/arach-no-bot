@@ -1,20 +1,21 @@
 import {
+  Collection,
   GuildMember,
   Message,
+  MessageAttachment,
   MessageEmbed,
   NewsChannel,
+  Snowflake,
   TextChannel,
   ThreadChannel,
   User,
 } from "discord.js";
-import { GuildMemberUtils, readImage } from "../utils";
 
-const keyword =
-  /.*(?:https)?:(?:\/\/)??(?:([d,D]estiny[t,T]he[g,G]ame\.)|(?:np\.)|(?:www\.)|(?:old\.))?((?:redd\.it)|(?:re(?:ve)?ddit\.com))((?:\/r\/)|(?:\/v\/)?[d,D]estiny[t,T]he[g,G]ame)?.*/;
+import { GuildMemberUtils, MessageUtils } from "../utils";
 
 export const messageCreateEvent = {
   name: "messageCreate",
-  handler(message: Message) {
+  async handler(message: Message) {
     const {
       channel,
       content,
@@ -22,12 +23,14 @@ export const messageCreateEvent = {
       author,
       member,
       embeds,
+      attachments,
     } = message as {
       channel: TextChannel | NewsChannel | ThreadChannel;
       author: User;
       content: string;
       member: GuildMember;
       embeds: MessageEmbed[];
+      attachments: Collection<Snowflake, MessageAttachment>;
     };
 
     const now = Date.now();
@@ -38,7 +41,15 @@ export const messageCreateEvent = {
       } - ${tag}: ${content}`
     );
 
-    if (keyword.test(content)) {
+    if (
+      channel.id !== "750395575257792604" &&
+      channel.id !== "934114177952383006"
+    ) {
+      return;
+    }
+
+    if (await MessageUtils.testMessage(content, embeds, attachments)) {
+      console.log("it's true");
       channel.send(`${author}, stop posting r/dtg >:(`);
       if (member) {
         GuildMemberUtils.timeOut(member);
@@ -49,20 +60,6 @@ export const messageCreateEvent = {
         );
         console.error("Error - The user is no longer a member of the guild.");
       }
-    }
-
-    if (embeds) {
-      const images = embeds
-        .filter((embed) => embed.image)
-        .map((embed) => embed.image);
-
-      images.find((image) => {
-        if (image) {
-          return readImage(image?.url);
-        }
-
-        return false;
-      });
     }
   },
 };
