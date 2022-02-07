@@ -16,7 +16,9 @@ export default class MessageUtils {
     attachments: Collection<Snowflake, MessageAttachment>
   ) => {
     if (keyword.test(content)) {
-      return true;
+      if (content.toLowerCase().includes("destinythegame")) {
+        return true;
+      }
     }
     if (embeds.length > 0 || attachments.size > 0) {
       const urls = embeds

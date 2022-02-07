@@ -20,6 +20,7 @@
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
     "dotenv": "^14.2.0",
+    "jimp": "^0.16.1",
     "redis": "^4.0.2",
     "tesseract.js": "^2.1.5",
     "tsc": "^2.0.4"

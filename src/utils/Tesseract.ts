@@ -7,6 +7,12 @@ export const readImage = async (url: string) => {
     data: { text },
   } = await Tesseract.recognize(url, "eng");
 
+  console.log(`Detected text
+  ========================
+  ${text}
+  ========================
+  in image.`);
+
   if (keyword.test(text)) {
     return true;
   }
