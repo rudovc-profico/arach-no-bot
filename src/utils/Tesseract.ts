@@ -11,7 +11,7 @@ export const readImage = async (url: string) => {
     const imageData = await image.getBufferAsync(Jimp.MIME_PNG);
     const {
       data: { text },
-    } = await Tesseract.recognize(imageData, "eng");
+    }: { data: { text: string } } = await Tesseract.recognize(imageData, "eng");
 
     console.log(`Detected text
 ========================
@@ -20,6 +20,10 @@ export const readImage = async (url: string) => {
     in image.`);
 
     if (keyword.test(text)) {
+      if (text.includes("@")) {
+        return false;
+      }
+
       return true;
     }
   }
