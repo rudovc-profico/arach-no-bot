@@ -2,11 +2,13 @@ import Tesseract from "tesseract.js";
 import Jimp from "jimp";
 
 const keyword = /.*[D,d]estiny[T,t]he[G,g]ame.*/;
+const angles = [0, 1, 2, 3].flatMap((n) => [n * 2 * 45, (n * 2 + 1) * 45]);
 
-export const readImage = async (url: string) => {
+export const readImage = async (url: string): Promise<boolean> => {
   const image = await Jimp.read(url);
-  for (let i = 0; i < 8; i++) {
-    image.rotate(i * 45);
+
+  return angles.some(async (angle): Promise<boolean | undefined> => {
+    image.rotate(angle);
 
     const imageData = await image.getBufferAsync(Jimp.MIME_PNG);
     const {
@@ -19,14 +21,14 @@ export const readImage = async (url: string) => {
 ========================
     in image.`);
 
-    if (keyword.test(text)) {
-      if (text.includes("@")) {
-        return false;
-      }
-
-      return true;
+    if (!keyword.test(text)) {
+      return false;
     }
-  }
 
-  return false;
+    if (text.includes("@")) {
+      return false;
+    }
+
+    return true;
+  });
 };

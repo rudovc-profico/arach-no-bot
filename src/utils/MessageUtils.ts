@@ -4,6 +4,7 @@ import {
   MessageEmbed,
   Snowflake,
 } from "discord.js";
+
 import { readImage } from "./Tesseract";
 
 const keyword =
@@ -14,12 +15,13 @@ export default class MessageUtils {
     content: string,
     embeds: MessageEmbed[],
     attachments: Collection<Snowflake, MessageAttachment>
-  ) => {
+  ): Promise<boolean> => {
     if (keyword.test(content)) {
       if (content.toLowerCase().includes("destinythegame")) {
         return true;
       }
     }
+
     if (embeds.length > 0 || attachments.size > 0) {
       const urls = embeds
         .map((embed) => embed.image?.url)
@@ -32,12 +34,9 @@ export default class MessageUtils {
             .map((attachment) => attachment.url)
         );
 
-      for (const url of urls) {
-        if (await readImage(url)) {
-          return true;
-        }
-      }
+      return urls.some((url) => readImage(url));
     }
+
     return false;
   };
 }

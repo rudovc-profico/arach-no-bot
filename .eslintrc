@@ -70,6 +70,7 @@
     ],
     "import/prefer-default-export": ["off"],
     "newline-before-return": "error",
+    "no-console": "off",
     "no-shadow": ["off"],
     "no-unused-vars": ["off"],
     "no-use-before-define": ["off"],
