@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "Image: $1";
-echo "Version: $2";
-
-docker build -t $1:latest .
-docker tag rudovc/arachnobot rudovc/arachnobot:$2

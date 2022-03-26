@@ -1,31 +1,36 @@
-FROM node:16.11.1
+FROM node:16.11.1 AS build
 
-# Set environment
-ARG token
+RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
 
 # Create app directory
 WORKDIR /usr/src/app
-
-# Create env file
-RUN echo TOKEN=${token} >> .env
 
 # Install dependencies
 # Wildcard copies package.json and package-lock.json
 COPY package*.json ./
 
-RUN npm install yarn
+COPY . .
 
-# Will uncomment this later for production only
-# RUN yarn install --production
+RUN npm install yarn
 
 RUN rm package-lock.json
 
 RUN yarn --production=true
 
-# Bundle app source code
-COPY . .
-
 RUN yarn build:prod
 
-CMD [ "yarn", "start:prod"]
+RUN npm prune --production
 
+RUN /usr/local/bin/node-prune
+
+FROM node:16.11.1-alpine
+
+WORKDIR /usr/app
+
+COPY --from=build /usr/src/app/dist .
+
+COPY --from=build /usr/src/app/node_modules ./node_modules
+
+RUN apk add --no-cache bash
+
+CMD [ "node", "app/app.js" ]
