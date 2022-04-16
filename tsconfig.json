@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "target": "es6",
     "noImplicitAny": true,
@@ -13,9 +13,15 @@
     "noUnusedLocals": true,
     "outDir": "dist",
     "rootDir": "src",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"],
+      "@bot": ["bot"],
+      "@commands": ["commands"],
+      "@database": ["database"],
+      "@events": ["events"],
+      "@functions": ["functions"],
+      "@utils": ["utils"]
     }
   },
   "include": ["src/**/*"],

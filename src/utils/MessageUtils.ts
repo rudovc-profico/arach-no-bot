@@ -34,7 +34,13 @@ export default class MessageUtils {
             .map((attachment) => attachment.url)
         );
 
-      return urls.some((url) => readImage(url));
+      const results = await Promise.all(
+        urls.map(async (url) => {
+          return await readImage(url);
+        })
+      );
+
+      return results.some((result) => result);
     }
 
     return false;

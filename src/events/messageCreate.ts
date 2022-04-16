@@ -11,7 +11,7 @@ import {
   User,
 } from "discord.js";
 
-import { GuildMemberUtils, MessageUtils } from "../utils";
+import { GuildMemberUtils, MessageUtils } from "@utils";
 
 export const messageCreateEvent = {
   name: "messageCreate",
@@ -48,7 +48,13 @@ export const messageCreateEvent = {
       return;
     }
 
-    if (await MessageUtils.testMessage(content, embeds, attachments)) {
+    const messageTest = await MessageUtils.testMessage(
+      content,
+      embeds,
+      attachments
+    );
+
+    if (messageTest) {
       channel.send(`${author}, stop posting r/dtg >:(`);
       if (member) {
         GuildMemberUtils.timeOut(member);
