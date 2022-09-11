@@ -1,12 +1,12 @@
-import { bot } from "@bot";
-import { APIGuildMember } from "discord-api-types";
-import { GuildMember } from "discord.js";
+import { bot } from '@bot';
+import { Interaction } from 'discord.js';
 
 export const startDirectMessageSignup = (
-  member: GuildMember | APIGuildMember | null
-) => {
+  member: Interaction['member']
+): void => {
   if (!member?.user) {
     console.error("Error - GuildMember isn't defined.");
+
     return;
   }
 
@@ -14,6 +14,7 @@ export const startDirectMessageSignup = (
 
   if (!user) {
     console.error("Error - Can't get User via ID.");
+
     return;
   }
 

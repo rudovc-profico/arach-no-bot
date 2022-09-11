@@ -18,7 +18,11 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".ts", ".json"],
+        "extensions": [".js", ".ts", "d.ts", ".json"],
+        "moduleDirectory": ["node_modules", "src"]
+      },
+      "typescript": {
+        "extensions": [".js", ".ts", "d.ts", ".json"],
         "moduleDirectory": ["node_modules", "src"]
       }
     }

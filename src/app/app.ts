@@ -1,9 +1,9 @@
-import "dotenv/config";
+import 'dotenv/config';
 
-import * as Events from "@events";
+import * as Events from '@events';
 
-import { bot } from "@bot";
-import { registerApplicationCommands } from "@commands";
+import { bot } from '@bot';
+import { registerApplicationCommands } from '@commands';
 
 bot.on(Events.readyEvent.name, Events.readyEvent.handler);
 bot.on(Events.messageCreateEvent.name, Events.messageCreateEvent.handler);
@@ -13,7 +13,7 @@ bot.on(
 );
 
 if (!process.env.TOKEN) {
-  console.error("Error - Missing API Token.");
+  console.error('Error - Missing API Token.');
   process.exit(1);
 }
 
