@@ -1,7 +1,5 @@
 FROM node:16.11.1 AS build
 
-RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -20,8 +18,6 @@ RUN yarn --production=true
 RUN yarn build:prod
 
 RUN npm prune --production
-
-RUN /usr/local/bin/node-prune
 
 FROM node:16.11.1-alpine
 
