@@ -15,5 +15,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: rudovc/arachnobot:latest
+          tags: rudovc/private:arachnobot
       - run: echo "This job's status is ${{ job.status }}."
