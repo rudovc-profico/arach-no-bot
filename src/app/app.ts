@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 import * as Events from '@events';
 
 import { bot } from '@bot';

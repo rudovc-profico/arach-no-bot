@@ -1,3 +1,1 @@
-import "dotenv/config";
-
-export { default as bot } from "./bot";
+export { default as bot } from './bot';
