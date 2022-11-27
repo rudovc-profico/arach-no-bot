@@ -13,11 +13,11 @@ RUN npm install yarn
 
 RUN rm package-lock.json
 
-RUN yarn --production=true
+RUN yarn
 
 RUN yarn build:prod
 
-RUN npm prune --production
+RUN yarn install --production
 
 FROM node:16.11.1-alpine
 
@@ -28,5 +28,10 @@ COPY --from=build /usr/src/app/dist .
 COPY --from=build /usr/src/app/node_modules ./node_modules
 
 RUN apk add --no-cache bash
+
+RUN --mount=type=secret,id=CLIENT_ID \
+  --mount=type=secret,id=TOKEN \
+   export CLIENT_ID=$(cat /run/secrets/CLIENT_ID) && \
+   export TOKEN=$(cat /run/secrets/TOKEN)
 
 CMD [ "node", "app/app.js" ]

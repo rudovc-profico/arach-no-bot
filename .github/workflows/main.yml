@@ -2,18 +2,22 @@ on: [push]
 jobs:
   Main-action-CD:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "Running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "${{ github.ref }} on ${{ github.repository }}..."
       - name: Log in to Dockerhub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Run the Docker build job
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: rudovc/private:arachnobot
+          secrets: |
+            "CLIENT_ID=${{ secrets.CLIENT_ID }}"
+            "TOKEN=${{ secrets.TOKEN }}"
       - run: echo "This job's status is ${{ job.status }}."
